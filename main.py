@@ -19,8 +19,8 @@ def brno_part_budget():
         soup = bs4.BeautifulSoup(vote_res.content, 'html.parser')
         
         # Get Property IDs
-        pids = soup.find_all('div', attrs={'class': re.compile('col-xs-12 vap-project-name')})
-        vote_pids = [int(re.compile(r'\d{1,}').findall(str(i.a))[0]) for i in pids]
+        pids = soup.find_all('div', attrs={'class':re.compile('col-xs-12 vap-project-name')})
+        vote_pids = [int(re.compile(r'id=(\d{1,})').findall(str(i.a))[0]) for i in pids]
         
         # Get votes
         votes = soup.find_all('span', attrs={'class':'vap-project-balance-number'})
@@ -30,10 +30,8 @@ def brno_part_budget():
         for i, j in zip(vote_pids, vote_votes):
             vote_data.append({"properties_id": i, "properties_vote": j})
 
-    # Put into data frames, join, and clean
-    proj_df = pd.DataFrame(proj_data)
-    vote_df = pd.DataFrame(vote_data)
-    df = proj_df.merge(vote_df, how='left', on='properties_id')
+    # Join and clean
+    df = pd.merge(pd.DataFrame(proj_data), pd.DataFrame(vote_data), how='left', on='properties_id')
     df = df.sort_values(by=['objectid'], ignore_index=True).fillna('')
 
     # Open GSheet
