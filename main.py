@@ -35,7 +35,7 @@ df = proj_df.merge(vote_df, how='left', on='properties_id')
 df = df.sort_values(by=['objectid'], ignore_index=True).fillna('')
 
 # Open GSheet
-gc = gs.service_account(filename=os.environ['GOOGLE_CREDENTIALS'])
+gc = gs.service_account(filename=os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
 ss = gc.open_by_key(os.environ['GOOGLE_SPREADSHEET_ID'])
 
 # Write data
