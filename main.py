@@ -13,7 +13,7 @@ def brno_part_budget():
         
     # Scrape voting data
     vote_data = []
-    for year in [2017, 2018, 2019]:
+    for year in [2017, 2018, 2019, 2020]:
         # Get BS object
         vote_res = rq.get('https://damenavas.brno.cz/vysledky-hlasovani/?y=' + str(year))
         soup = bs4.BeautifulSoup(vote_res.content, 'html.parser')
@@ -40,4 +40,6 @@ def brno_part_budget():
 
     # Write data
     ss.worksheets()[0].update([df.columns.values.tolist()] + df.values.tolist())
-    print('Data successfully updated.')
+
+    # Return message if successful
+    return print('Data successfully updated.')
