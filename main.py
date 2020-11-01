@@ -14,15 +14,16 @@ def brno_part_budget():
     # Scrape voting data
     vote_data = []
     for year in [2017, 2018, 2019, 2020]:
+
         # Get BS object
         vote_res = rq.get('https://damenavas.brno.cz/vysledky-hlasovani/?y=' + str(year))
         soup = bs4.BeautifulSoup(vote_res.content, 'html.parser')
         
-        # Get Property IDs
+        # Extract property IDs
         pids = soup.find_all('div', attrs={'class':re.compile('col-xs-12 vap-project-name')})
         vote_pids = [int(re.compile(r'id=(\d{1,})').findall(str(i.a))[0]) for i in pids]
         
-        # Get votes
+        # Extract votes
         votes = soup.find_all('span', attrs={'class':'vap-project-balance-number'})
         vote_votes = [int(i.text.replace(' ', '')) for i in votes]
 
@@ -30,15 +31,13 @@ def brno_part_budget():
         for i, j in zip(vote_pids, vote_votes):
             vote_data.append({"properties_id": i, "properties_vote": j})
 
-    # Join and clean
+    # Join and clean data
     df = pd.merge(pd.DataFrame(proj_data), pd.DataFrame(vote_data), how='left', on='properties_id')
     df = df.sort_values(by=['objectid'], ignore_index=True).fillna('')
 
-    # Open GSheet
+    # Open and write into GSheet
     gc = gs.service_account(filename=os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
     ss = gc.open_by_key(os.environ['GOOGLE_SPREADSHEET_ID'])
-
-    # Write data
     ss.worksheets()[0].update([df.columns.values.tolist()] + df.values.tolist())
 
     # Return message if successful
