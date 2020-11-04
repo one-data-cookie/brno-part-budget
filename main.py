@@ -43,3 +43,4 @@ def brno_part_budget():
 
     # Return message if successful
     return print('Data successfully updated.')
+    
