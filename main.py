@@ -35,6 +35,10 @@ def brno_part_budget():
     full_data = api_data.join(wp_data.set_index('properties_id'), on='properties_id')
     full_data = full_data.fillna('').sort_values('properties_id')
 
+    # Add column with cleaned district names
+    properties_district_cleaned = full_data['properties_district'].apply(lambda x: 'Brno' if x in ('Brno', ' - ') else x.split(' - ')[1])
+    full_data.insert(7, 'properties_district_cleaned', properties_district_cleaned)
+
     # Push to GSheet
     gc = gs.service_account(filename=os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
     sh = gc.open_by_key(os.environ['GOOGLE_SPREADSHEET_ID'])
