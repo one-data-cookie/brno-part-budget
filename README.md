@@ -1,12 +1,15 @@
 # brno-part-budget
 This repository aims to provide data for visualisation of projects submitted to [Participatory Budget in Brno, Czech Rep](https://damenavas.brno.cz/).
 
-To do that the script:
-* Downloads data about participatory budget projects from API
+To do that, the script:
+* Downloads data about participatory budget projects through API
 * Scrapes data about public votes from a webpage
+* Joins and cleans the data
 * Pushes the resulting dataset into a Google spreadsheet
 
-Hosting and scheduling of the script is managed via [Heroku](https://www.heroku.com/) and final visualisation is performed via [Tableau Public](https://public.tableau.com/).
+Hosting and scheduling of the script is managed via [Heroku](https://www.heroku.com/) and the final visualisation is performed via [Tableau Public](https://public.tableau.com/).
+
+Visit the resulting [interactive dashboard](https://public.tableau.com/profile/paro.brno#!/vizhome/PaRo-grafy1/NavigationDB) and give it a whirl!
 
 Collaborators:
 * [Adéla Procházková](mailto:adelaprocha(at)gmail.com)
