@@ -17,7 +17,7 @@ def brno_part_budget():
     pids_data = []
     votes_data = []
 
-    for year in ['2017', '2018', '2019', '2020']:
+    for year in ['2017', '2018', '2019', '2020', '2021']:
       page_res = rq.get('https://damenavas.brno.cz/vysledky-hlasovani/?y=' + year)
       soup = bs4.BeautifulSoup(page_res.content, 'html.parser')
 
