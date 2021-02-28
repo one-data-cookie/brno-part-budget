@@ -8,9 +8,9 @@ import os
 def brno_part_budget():
 
     # Import data from API
-    response = rq.get('https://opendata.arcgis.com/datasets/7809dbbc93264c1fb7f7269497cd3ca6_0.geojson')
+    response = rq.get('https://gis.brno.cz/ags1/rest/services/Hosted/ProjektyPARO/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json')
     data = response.json()
-    proj_data = [i['properties'] for i in data['features']]
+    proj_data = [i['attributes'] for i in data['features']]
     api_data = pd.DataFrame(proj_data)
 
     # Scrape web page (property IDs and votes data)
