@@ -8,7 +8,7 @@ import os
 def brno_part_budget():
 
     # Import data from API
-    response = rq.get('https://gis.brno.cz/ags1/rest/services/Hosted/ProjektyPARO/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json')
+    response = rq.get('https://services6.arcgis.com/fUWVlHWZNxUvTUh8/arcgis/rest/services/ProjektyPARO/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json')
     data = response.json()
     proj_data = [i['attributes'] for i in data['features']]
     api_data = pd.DataFrame(proj_data)
