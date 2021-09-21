@@ -5,6 +5,7 @@ import bs4
 import re
 import os
 
+
 def brno_part_budget():
 
     # Import data from API
@@ -47,3 +48,7 @@ def brno_part_budget():
 
     # Return message if successful
     return print('Data successfully updated.')
+
+
+if __name__ == '__main__':
+    brno_part_budget()
