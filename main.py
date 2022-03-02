@@ -17,7 +17,9 @@ def brno_part_budget():
 
     # Scrape web page (property IDs and votes data)
     pids_data = []
+    totals_data = []
     votes_data = []
+    details_data = []
 
     this_year = dt.date.today().year
 
@@ -25,15 +27,28 @@ def brno_part_budget():
         page_res = rq.get(f'https://damenavas.brno.cz/vysledky-hlasovani/?y={str(year)}')
         soup = bs4.BeautifulSoup(page_res.content, 'html.parser')
 
+        # Scrape total number of people who voted in given year
+        total = soup.find('div', attrs={'class':'g-stats-number'})
+        total = int(total.text.replace(' ', ''))
+
+        # Scrape property ID
         for projects in soup.find_all('div', attrs={re.compile('col-xs-12 vap-project-name')}):
             pids = int(re.compile(r'id=(\d{1,})').findall(str(projects.a))[0])
             pids_data.append(pids)
+            totals_data.append(total)  # add total to each project
 
+        # Scrape number of positive votes
         for votes in soup.find_all('span', attrs={'class':'vap-project-balance-number'}):
             votes = int(votes.text.replace(' ', ''))
             votes_data.append(votes)
 
-    wp_data = pd.DataFrame(list(zip(pids_data, votes_data)), columns=['properties_id','votes'])
+        # Scrape number of negative votes and people who voted
+        for details in soup.find_all('span', attrs={'class':'vap-project-votes'}):
+            details = int(details.text.replace(' ', ''))
+            details_data.append(details)
+
+    wp_data = pd.DataFrame(list(zip(pids_data, votes_data, details_data[::2], details_data[1:][::2], totals_data)),
+                           columns=['properties_id', 'votes', 'votes_neg', 'votes_ppl', 'votes_total'])
 
     # Join data together and clean
     full_data = api_data.join(wp_data.set_index('properties_id'), on='properties_id')
