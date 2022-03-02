@@ -44,7 +44,7 @@ def brno_part_budget():
     full_data.insert(7, 'properties_district_short', full_data['properties_district'].apply(lambda x: 'Brno' if x == 'Brno' else x.split('-')[1]))
 
     # Push to GSheet
-    gc = gs.service_account(filename=os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
+    gc = gs.service_account_from_dict(os.environ['GOOGLE_CREDENTIALS'])
     sh = gc.open_by_key(os.environ['GOOGLE_SPREADSHEET_ID'])
     ws = sh.get_worksheet(0)
     ws.update([full_data.columns.values.tolist()] + full_data.values.tolist())
