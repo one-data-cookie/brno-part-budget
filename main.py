@@ -1,9 +1,10 @@
-import requests as rq
-import pandas as pd
-import gspread as gs
 import bs4
-import re
+import datetime as dt
+import gspread as gs
 import os
+import pandas as pd
+import re
+import requests as rq
 
 
 def brno_part_budget():
@@ -18,8 +19,10 @@ def brno_part_budget():
     pids_data = []
     votes_data = []
 
-    for year in ['2017', '2018', '2019', '2020']:
-        page_res = rq.get('https://damenavas.brno.cz/vysledky-hlasovani/?y=' + year)
+    this_year = dt.date.today().year
+
+    for year in range(2017, this_year):
+        page_res = rq.get(f'https://damenavas.brno.cz/vysledky-hlasovani/?y={str(year)}')
         soup = bs4.BeautifulSoup(page_res.content, 'html.parser')
 
         for projects in soup.find_all('div', attrs={re.compile('col-xs-12 vap-project-name')}):
