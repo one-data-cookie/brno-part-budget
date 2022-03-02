@@ -19,16 +19,16 @@ def brno_part_budget():
     votes_data = []
 
     for year in ['2017', '2018', '2019', '2020']:
-      page_res = rq.get('https://damenavas.brno.cz/vysledky-hlasovani/?y=' + year)
-      soup = bs4.BeautifulSoup(page_res.content, 'html.parser')
+        page_res = rq.get('https://damenavas.brno.cz/vysledky-hlasovani/?y=' + year)
+        soup = bs4.BeautifulSoup(page_res.content, 'html.parser')
 
-      for projects in soup.find_all('div', attrs={re.compile('col-xs-12 vap-project-name')}):
-        pids = int(re.compile(r'id=(\d{1,})').findall(str(projects.a))[0])
-        pids_data.append(pids)
+        for projects in soup.find_all('div', attrs={re.compile('col-xs-12 vap-project-name')}):
+            pids = int(re.compile(r'id=(\d{1,})').findall(str(projects.a))[0])
+            pids_data.append(pids)
 
-      for votes in soup.find_all('span', attrs={'class':'vap-project-balance-number'}):
-        votes = int(votes.text.replace(' ', ''))
-        votes_data.append(votes)
+        for votes in soup.find_all('span', attrs={'class':'vap-project-balance-number'}):
+            votes = int(votes.text.replace(' ', ''))
+            votes_data.append(votes)
 
     wp_data = pd.DataFrame(list(zip(pids_data, votes_data)), columns=['properties_id','votes'])
 
