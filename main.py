@@ -18,9 +18,11 @@ def brno_part_budget():
 
     # Scrape web page (property IDs and votes data)
     pids_data = []
-    totals_data = []
-    votes_data = []
-    details_data = []
+    votes_total = []
+    votes_number = []
+    votes_pos = []
+    votes_neg = []
+    votes_ppl = []
 
     this_year = dt.date.today().year
 
@@ -36,20 +38,23 @@ def brno_part_budget():
         for projects in soup.find_all('div', attrs={re.compile('col-xs-12 vap-project-name')}):
             pids = int(re.compile(r'id=(\d{1,})').findall(str(projects.a))[0])
             pids_data.append(pids)
-            totals_data.append(total)  # add total to each project
+            votes_total.append(total)  # add total to each project
 
-        # Scrape number of positive votes
+        # Scrape votes number
         for votes in soup.find_all('span', attrs={'class':'vap-project-balance-number'}):
             votes = int(votes.text.replace(' ', ''))
-            votes_data.append(votes)
+            votes_number.append(votes)
 
-        # Scrape number of negative votes and people who voted
-        for details in soup.find_all('span', attrs={'class':'vap-project-votes'}):
-            details = int(details.text.replace(' ', ''))
-            details_data.append(details)
+        # Scrape votes details
+        for details in soup.find_all('span', attrs={'data-toggle': 'tooltip'}):
+            details = re.compile(r'Projekt získal (\d+ ?\d*) kladných hlasů od (\d+ ?\d*) hlasujících\. Dále získal (\d+ ?\d*) záporných hlasů\.').findall(str(details))[0]
+            details = [int(d.replace(' ', '')) for d in details]
+            votes_pos.append(details[0])
+            votes_neg.append(details[2])
+            votes_ppl.append(details[1])
 
-    wp_data = pd.DataFrame(list(zip(pids_data, votes_data, details_data[::2], details_data[1:][::2], totals_data)),
-                           columns=['properties_id', 'votes', 'votes_neg', 'votes_ppl', 'votes_total'])
+    wp_data = pd.DataFrame(list(zip(pids_data, votes_number, votes_pos, votes_neg, votes_ppl, votes_total)),
+                           columns=['properties_id', 'votes', 'votes_pos', 'votes_neg', 'votes_ppl', 'votes_total'])
 
     # Join data together and clean
     full_data = api_data.join(wp_data.set_index('properties_id'), on='properties_id')
