@@ -1,5 +1,4 @@
-APScheduler==3.6.3
-requests==2.23.0
-pandas==1.0.4
-gspread==3.6.0
 bs4==0.0.1
+gspread==5.2.0
+pandas==1.0.1
+requests==2.26.0
