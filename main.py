@@ -27,7 +27,7 @@ def brno_part_budget():
     this_year = dt.date.today().year
 
     for year in range(2017, this_year):
-        page_res = rq.get(f'https://damenavas.brno.cz/vysledky-hlasovani/?y={str(year)}')
+        page_res = rq.get(f'https://paro.damenavas.cz/vysledky-hlasovani/?y={str(year)}')
         soup = bs4.BeautifulSoup(page_res.content, 'html.parser')
 
         # Scrape total number of people who voted in given year
