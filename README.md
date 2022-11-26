@@ -7,7 +7,7 @@ To do that, the script:
 * Joins and cleans the data
 * Pushes the resulting dataset into a Google spreadsheet
 
-Hosting and scheduling of the script is managed via [Heroku](https://www.heroku.com/) and the final visualisation is performed via [Tableau Public](https://public.tableau.com/).
+Hosting and scheduling of the script is managed via GitHub and the final visualisation is performed via [Tableau Public](https://public.tableau.com/).
 
 Visit the resulting [interactive dashboard](https://public.tableau.com/profile/paro.brno#!/vizhome/PaRo-grafy1/NavigationDB) and give it a whirl!
 
@@ -16,4 +16,4 @@ Collaborators:
 * [Elena Gorokhova](mailto:elena.o.gorokhova(at)gmail.com)
 * [Michal Koláček](mailto:kolacek.m(at)gmail.com)
 
-This project was created as a part of Data Academy by [Czechitas](https://www.czechitas.cz/en/). 
+This project was created as a part of Data Academy by [Czechitas](https://www.czechitas.cz/en/).

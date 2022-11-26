@@ -1,0 +1,23 @@
+name: run_script
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          cache: 'pip'
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - name: Run script
+        run: python main.py
