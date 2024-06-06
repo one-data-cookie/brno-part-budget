@@ -9,7 +9,7 @@ To do that, the script:
 
 Hosting and scheduling of the script is managed via GitHub and the final visualisation is performed via [Tableau Public](https://public.tableau.com/).
 
-Visit the resulting [interactive dashboard](https://public.tableau.com/profile/paro.brno#!/vizhome/PaRo-grafy1/NavigationDB) and give it a whirl!
+Visit the resulting [interactive dashboard](https://public.tableau.com/views/ParticipativnrozpoetmstaBrna_17177050818370/NavigationDB) and give it a whirl!
 
 Collaborators:
 * [Adéla Procházková](mailto:adelaprocha(at)gmail.com)
