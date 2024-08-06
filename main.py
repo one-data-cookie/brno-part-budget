@@ -10,11 +10,21 @@ import requests as rq
 
 def brno_part_budget():
 
-    # Import data from API
-    response = rq.get('https://services6.arcgis.com/fUWVlHWZNxUvTUh8/arcgis/rest/services/ProjektyPARO/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json')
-    data = response.json()
-    proj_data = [i['attributes'] for i in data['features']]
-    api_data = pd.DataFrame(proj_data)
+    # Define the range of years to query
+    start_year = 2017
+    this_year = dt.date.today().year
+
+    # Loop through each year to query all data from API
+    all_proj_data = []
+
+    for year in range(start_year, this_year + 1):
+        response = rq.get(f'https://services6.arcgis.com/fUWVlHWZNxUvTUh8/arcgis/rest/services/ProjektyPARO/FeatureServer/0/query?where=properties_year={year}&outFields=*&outSR=4326&f=json')
+        data = response.json()
+        proj_data = [i['attributes'] for i in data['features']]
+        all_proj_data.extend(proj_data)
+
+    # Convert the final data into a DataFrame
+    api_data = pd.DataFrame(all_proj_data)
 
     # Scrape web page (property IDs and votes data)
     pids_data = []
@@ -24,14 +34,12 @@ def brno_part_budget():
     votes_neg = []
     votes_ppl = []
 
-    this_year = dt.date.today().year
-
-    for year in range(2017, this_year):
+    for year in range(start_year, this_year + 1):
         page_res = rq.get(f'https://paro.damenavas.cz/vysledky-hlasovani/?y={str(year)}')
         soup = bs4.BeautifulSoup(page_res.content, 'html.parser')
 
         # Scrape total number of people who voted in given year
-        total = soup.find('div', attrs={'class':'g-stats-number'})
+        total = soup.find('div', attrs={'class': 'g-stats-number'})
         total = int(total.text.replace(' ', ''))
 
         # Scrape property ID
@@ -41,7 +49,7 @@ def brno_part_budget():
             votes_total.append(total)  # add total to each project
 
         # Scrape votes number
-        for votes in soup.find_all('span', attrs={'class':'vap-project-balance-number'}):
+        for votes in soup.find_all('span', attrs={'class': 'vap-project-balance-number'}):
             votes = int(votes.text.replace(' ', ''))
             votes_number.append(votes)
 
