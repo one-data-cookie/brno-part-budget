@@ -1,7 +1,7 @@
 # brno-part-budget
 
 This repository provides data for the visualisation of projects submitted
-to the [Participatory Budget in Brno, Czechia](https://damenavas.brno.cz/).
+to the [Participatory Budget in Brno](https://damenavas.brno.cz/).
 
 To achieve this, the script runs the following daily:
 - Downloads data on participatory budget projects through an API
