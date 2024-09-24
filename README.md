@@ -9,9 +9,13 @@ To achieve this, the script runs the following daily:
 - Merges and cleans the data
 - Pushes the resulting dataset into a Google Spreadsheet
 
-Visit the resulting [interactive dashboard](https://public.tableau.com/views/ParticipativnrozpoetmstaBrna_17177050818370/NavigationDB) and explore the data!
-It is also publicly available on the city's data portal [data.Brno](https://data.brno.cz/pages/a41adae354334c859561731eabe9cf40).
+To explore, visit the resulting interactive dashboard on
+[Tableau Public](https://public.tableau.com/views/ParticipativnrozpoetmstaBrna_17177050818370/NavigationDB)
+or the city's data portal [data.Brno](https://data.brno.cz/pages/a41adae354334c859561731eabe9cf40).
+
 ![Dashboard screenshot](./screenshot.png)
+
+---
 
 This project was initially developed as part of the Data Academy by [Czechitas](https://www.czechitas.cz/en/).
 
