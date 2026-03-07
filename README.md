@@ -12,7 +12,6 @@ To achieve this, the script does the following weekly:
 
 To explore, visit the resulting interactive dashboard on
 [Tableau Public](https://public.tableau.com/views/ParticipativnrozpoetmstaBrna_17177050818370/NavigationDB).
-
 Previously, it was also available on the city's data portal [data.Brno](https://data.brno.cz/pages/a41adae354334c859561731eabe9cf40).
 
 ![Dashboard screenshot](./screenshot.png)
