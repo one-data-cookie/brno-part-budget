@@ -1,7 +1,7 @@
 # brno-part-budget
 
 This repository provides data for the visualisation of projects submitted
-to the [Brno's participatory budget](https://damenavas.brno.cz/),
+to the [Brno's participatory budget](https://damenavas.cz/),
 including public vote results.
 
 To achieve this, the script does the following weekly:
@@ -10,9 +10,8 @@ To achieve this, the script does the following weekly:
 - Merges and cleans the data
 - Pushes the resulting dataset into a Google Spreadsheet
 
-To explore, visit the resulting interactive dashboard on
-[Tableau Public](https://public.tableau.com/views/ParticipativnrozpoetmstaBrna_17177050818370/NavigationDB).
-Previously, it was also available on the city's data portal [data.Brno](https://data.brno.cz/pages/a41adae354334c859561731eabe9cf40).
+To explore, visit the resulting [interactive dashboard on Tableau Public](https://public.tableau.com/views/ParticipativnrozpoetmstaBrna_17177050818370/NavigationDB).
+Previously, it was also available on the Brno's data portal.
 
 ![Dashboard screenshot](./screenshot.png)
 
