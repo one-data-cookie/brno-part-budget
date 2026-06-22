@@ -181,7 +181,7 @@ def brno_part_budget():
         voted_tokens_count = vote_data.get('votedTokensCount', '')
 
         for project in projects:
-            vote = project.get('vote', {})
+            vote = project.get('vote') or {}
             vote_rows.append({
                 'properties_id': project.get('id'),
                 'votes': vote.get('balance', ''),
